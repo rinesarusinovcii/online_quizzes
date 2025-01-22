@@ -1,0 +1,21 @@
+<html th:replace="~{_fragments/_layoutFile :: layout('Home',~{::div})}"
+    xmlns:th="http://www.thymeleaf.org">
+<div class="col-lg-9 col-md-8 col-2 ">
+<div class="card border-0">
+    <!-- Card body -->
+    <div class="card-body p-10 ">
+        <div class="text-center">
+            <!-- img -->
+            <img th:src="@{/assets/images/survey-img.svg}" alt="survey" class="img-fluid"/>
+            <!-- text -->
+            <div class="px-lg-8">
+                <h1>Welcome to Quiz</h1>
+                <p class="mb-0">Engage live or asynchronously with quiz and poll questions that
+                    participants complete at their own pace.</p>
+                <a href="student-quiz-start.html" class="btn btn-primary mt-4">Start Your Quiz</a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</html>
