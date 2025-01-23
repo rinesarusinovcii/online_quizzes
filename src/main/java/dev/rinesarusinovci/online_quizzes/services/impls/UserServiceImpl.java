@@ -23,10 +23,10 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository repository;
-    private final UserMapperImpl userMapperImpl;
+    private final UserMapper userMapperImpl;
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository repository, UserMapperImpl userMapperImpl, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository repository, UserMapper userMapperImpl, PasswordEncoder passwordEncoder) {
         this.repository = repository;
         this.userMapperImpl = userMapperImpl;
         this.passwordEncoder = passwordEncoder;
