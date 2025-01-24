@@ -17,4 +17,6 @@ public @interface SameAs {
     Class<? extends Payload>[] payload() default {};
 
     String field();
+
+    String sameAsField();
 }

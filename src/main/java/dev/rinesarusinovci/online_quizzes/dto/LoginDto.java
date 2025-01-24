@@ -13,11 +13,7 @@ public class LoginDto {
     @Size(message = "Emaili duhet te jete me shkruajt 3 deri ne 50 karaktere!", min = 3, max = 50)
     private String email;
 
-    @NotBlank(message = "Passwordi nuk mund te jete i zbrazet!")
-    @NotNull(message = "Passwordi nuk mund te jete null!")
-    @Size(message = "Passwordi duhet te jete me shkruajt 3 deri ne 50 karaktere!", min = 6, max = 50)
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$",
-            message = "Passwordi duhet te permbaje se paku nje shkronje te madhe, nje shkronje te vogel dhe nje numer!")
+
     private String password;
 
 

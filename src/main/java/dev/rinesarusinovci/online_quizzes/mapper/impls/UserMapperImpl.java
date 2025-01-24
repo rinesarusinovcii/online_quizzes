@@ -7,6 +7,8 @@ import dev.rinesarusinovci.online_quizzes.entities.User;
 import dev.rinesarusinovci.online_quizzes.mapper.UserMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class UserMapperImpl implements UserMapper {
     @Override
@@ -27,7 +29,8 @@ public class UserMapperImpl implements UserMapper {
         user.setEmail(registerUserRequestDto.getEmail());
         user.setName(registerUserRequestDto.getName());
         user.setSurname(registerUserRequestDto.getSurname());
-        user.setDateOfBirth(registerUserRequestDto.getBirthdate());
+       user.setBirthdate(registerUserRequestDto.getBirthdate());
+        user.setRole(registerUserRequestDto.getRole());
 
         return user;
     }
@@ -40,8 +43,9 @@ public class UserMapperImpl implements UserMapper {
         user.setEmail(userDto.getEmail());
         user.setName(userDto.getName());
         user.setSurname(userDto.getSurname());
+        user.setBirthdate(userDto.getBirthdate());
         user.setRole(userDto.getRole());
-        user.setDateOfBirth(userDto.getDateOfBirth());
+
         return user;
     }
 
@@ -53,8 +57,19 @@ public class UserMapperImpl implements UserMapper {
         userDto.setEmail(user.getEmail());
         userDto.setName(user.getName());
         userDto.setSurname(user.getSurname());
+        userDto.setBirthdate(user.getBirthdate());
         userDto.setRole(user.getRole());
-        userDto.setDateOfBirth(user.getDateOfBirth());
+
         return userDto;
+    }
+
+    @Override
+    public List<User> toEntities(List<UserDto> userDtos) {
+        return List.of();
+    }
+
+    @Override
+    public List<UserDto> toDtos(List<User> users) {
+        return List.of();
     }
 }

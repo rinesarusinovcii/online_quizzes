@@ -7,5 +7,5 @@ import dev.rinesarusinovci.online_quizzes.entities.User;
 public interface UserService {
     UserDto login(String email, String password);
 
-    UserDto register(RegisterUserDto userRegDto);
+    boolean register(RegisterUserDto userRegDto);
 }

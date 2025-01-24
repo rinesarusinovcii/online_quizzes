@@ -2,24 +2,33 @@ package dev.rinesarusinovci.online_quizzes.infrastructure;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
 public class SameAsValidator implements ConstraintValidator<SameAs, Object> {
     private String field;
+    private String sameAsField;
 
     @Override
     public void initialize(SameAs constraintAnnotation) {
         this.field = constraintAnnotation.field();
+        this.sameAsField = constraintAnnotation.sameAsField();
     }
 
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext context) {
         if (value == null) {
-            return true; // Let @NotNull handle null values
+            return true;
         }
 
-        Object fieldValue = new BeanWrapperImpl(value).getPropertyValue(field);
+        try {
+            BeanWrapper wrapper = new BeanWrapperImpl(value);
+            Object fieldValue = wrapper.getPropertyValue(field);
+            Object sameAsFieldValue = wrapper.getPropertyValue(sameAsField);
 
-        return value.equals(fieldValue);
+            return fieldValue != null && fieldValue.equals(sameAsFieldValue);
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

@@ -36,11 +36,10 @@ public class User {
     @Size(min = 4, max = 25, message = "Surname must be between 2 and 25 characters")
     private String surname;
 
+
     @Column(nullable = false)
-    @NotNull(message = "Date of birth is required")
-    @NotBlank(message = "Date of birth is required")
-    @AgeBetween(min = 16, max = 110, message = "You should be at least 16 years old")
-    private LocalDate dateOfBirth;
+    @AgeBetween(min = 16, max = 110, message = "You should be between 16 and 110 years old")
+    private LocalDate birthdate;
 
     @Column(nullable = false, unique = true, length = 50)
     @NotNull(message = "Username is required")
@@ -55,16 +54,11 @@ public class User {
     @Contains(value = "@", message = "Email should contain @ symbol")
     private String email;
 
-    @Column(nullable = false)
-    @NotNull(message = "Password is required")
-    @NotBlank(message = "Password is required")
-    @Size(min = 8, max = 50, message = "Password must be between 8 and 50 characters")
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$", message = "Password must contain at least one lowercase letter, one uppercase letter, and one number")
+    @Column(nullable = false, length = 255)
     private String password;
 
     @Column(nullable = false)
     @NotNull(message = "Role is required")
-    @NotBlank(message = "Role is required")
     @Enumerated(EnumType.STRING)
     private Role role;
 

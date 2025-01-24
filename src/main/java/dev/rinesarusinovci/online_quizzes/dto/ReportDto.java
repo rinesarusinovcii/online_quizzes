@@ -5,17 +5,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class QuizDto {
+@AllArgsConstructor
+public class ReportDto {
     private long id;
-    private String title;
-    private String description;
-    private String category;
-    private boolean isPublished;
+    private long quizId; // Reference to the associated quiz ID
+    private double averageScore;
+    private double highestScore;
+    private double lowestScore;
     private LocalDate createdAt;
-    private int timeLimit;
-    private long userId;
 }

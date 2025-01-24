@@ -4,7 +4,7 @@ package dev.rinesarusinovci.online_quizzes.dto;
 import dev.rinesarusinovci.online_quizzes.enums.Role;
 import dev.rinesarusinovci.online_quizzes.infrastructure.AgeBetween;
 import dev.rinesarusinovci.online_quizzes.infrastructure.Contains;
-import dev.rinesarusinovci.online_quizzes.infrastructure.SameAs;
+
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -39,25 +39,22 @@ public class RegisterUserDto {
     private String surname;
 
 
-    private Role role;
-
-    @NotNull(message = "Birthdate is required")
-    @Past(message = "Birthdate should be in the past")
-    @AgeBetween(min = 16, max = 110, message = "You should be at least 16 years old")
+    @AgeBetween(min = 16, max = 110, message = "You should be between 16 and 110 years old")
     private LocalDate birthdate;
 
-    @Size(min = 8, max = 50, message = "Password should be between 6 and 100 characters")
-    @NotBlank(message = "Password should not be empty or blank")
-    @NotNull(message = "Password is required")
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$", message = "Password should contain at least one uppercase letter, one lowercase letter and one digit")
+    @NotNull(message = "Date of birth is required")
+    private Role role;
+
+
+
     private String password;
 
-    @Size(min = 6, max = 100, message = "Password should be between 6 and 100 characters")
-    @NotBlank(message = "Password should not be empty or blank")
-    @NotNull(message = "Password is required")
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$", message = "Password should contain at least one uppercase letter, one lowercase letter and one digit")
-    private String confirmPassword;
+//    @Size(min = 8, max = 50, message = "Password should be between 6 and 100 characters")
+//    @NotBlank(message = "Password should not be empty or blank")
+//    @NotNull(message = "Password is required")
+//    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$", message = "Password should contain at least one uppercase letter, one lowercase letter and one digit")
+//    private String confirmPassword;
 
-    @AssertTrue(message = "You must accept the terms and conditions")
-    private boolean acceptTerms;
+//    @AssertTrue(message = "You must accept the terms and conditions")
+//    private boolean acceptTerms;
 }

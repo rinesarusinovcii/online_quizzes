@@ -19,7 +19,9 @@ public class UserDto {
     private Long id;
     private String name;
     private String surname;
-    private LocalDate dateOfBirth;
+
+    @AgeBetween(min = 16, max = 110, message = "You should be between 16 and 110 years old")
+    private LocalDate birthdate;
     private String username;
     private String email;
     private Role role;

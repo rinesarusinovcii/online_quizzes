@@ -41,14 +41,14 @@ public class SimpleSessionCookieFilter extends OncePerRequestFilter {
 
         UserDto userDto = (UserDto)session.getAttribute("user");
 
-        // validimi i path-it sipas ROLE
-        if(userDto.getRole().equals("ADMIN")) {
-            AdminFilter.doFilter(request, response, filterChain);
-            return;
-        } else if(userDto.getRole().equals("CUSTOMER")) {
-            UserFilter.doFilter(request, response, filterChain);
-            return;
-        }
+//        // validimi i path-it sipas ROLE
+//        if(userDto.getRole().equals("ADMIN")) {
+//            AdminFilter.doFilter(request, response, filterChain);
+//            return;
+//        } else if(userDto.getRole().equals("CUSTOMER")) {
+//            UserFilter.doFilter(request, response, filterChain);
+//            return;
+//        }
 
         filterChain.doFilter(request, response);
     }

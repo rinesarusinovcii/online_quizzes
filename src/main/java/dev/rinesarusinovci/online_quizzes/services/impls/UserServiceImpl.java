@@ -2,23 +2,20 @@ package dev.rinesarusinovci.online_quizzes.services.impls;
 
 import dev.rinesarusinovci.online_quizzes.dto.RegisterUserDto;
 import dev.rinesarusinovci.online_quizzes.dto.UserDto;
-import dev.rinesarusinovci.online_quizzes.dto.UserListingDto;
 import dev.rinesarusinovci.online_quizzes.entities.User;
-import dev.rinesarusinovci.online_quizzes.exeption.EmailExistsExeption;
-import dev.rinesarusinovci.online_quizzes.exeption.UserNotFoundExeption;
-import dev.rinesarusinovci.online_quizzes.exeption.UsernameExistsExeption;
-import dev.rinesarusinovci.online_quizzes.exeption.WrongPasswordExeption;
+import dev.rinesarusinovci.online_quizzes.exception.EmailExistsException;
+import dev.rinesarusinovci.online_quizzes.exception.UserNotFoundException;
+import dev.rinesarusinovci.online_quizzes.exception.UsernameExistsException;
+import dev.rinesarusinovci.online_quizzes.exception.WrongPasswordException;
 import dev.rinesarusinovci.online_quizzes.mapper.UserMapper;
-import dev.rinesarusinovci.online_quizzes.mapper.impls.UserMapperImpl;
+
 import dev.rinesarusinovci.online_quizzes.repositories.UserRepository;
 import dev.rinesarusinovci.online_quizzes.services.UserService;
-import jakarta.persistence.EntityNotFoundException;
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -37,32 +34,34 @@ public class UserServiceImpl implements UserService {
         User user = repository.findByEmail(email).orElse(null);
 
         if (user == null) {
-            throw new UserNotFoundExeption();
+            throw new UserNotFoundException();
         }
         if (!passwordEncoder.matches(password, user.getPassword())) {
-            throw new WrongPasswordExeption();
+            throw new WrongPasswordException();
         }
 
         return userMapperImpl.toDto(user);
     }
 
     @Override
-    public UserDto register(RegisterUserDto registerUserRequestDto) {
+    public boolean register(RegisterUserDto registerUserRequestDto) {
         if (repository.findByUsername(registerUserRequestDto.getUsername()).isPresent()) {
-            throw new UsernameExistsExeption();
+            throw new UsernameExistsException();
         }
         if (repository.findByEmail(registerUserRequestDto.getEmail()).isPresent()) {
-            throw new EmailExistsExeption();
+            throw new EmailExistsException();
         }
 
         User user = userMapperImpl.userRequestDtoToUser(registerUserRequestDto);
 
         user.setPassword(passwordEncoder.encode(registerUserRequestDto.getPassword()));
 
-       User savedUser = repository.save(user);
+      repository.save(user);
 
-        return userMapperImpl.toDto(savedUser);
+        return true;
     }
+
+
 
 
 }

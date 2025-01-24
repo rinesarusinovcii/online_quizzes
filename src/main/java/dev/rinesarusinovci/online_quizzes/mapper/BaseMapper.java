@@ -10,5 +10,7 @@ public interface BaseMapper<TEntity, TDto> {
 
     TDto toDto(TEntity entity);
 
+    List<TEntity> toEntities(List<TDto> dtos);
 
+    List<TDto> toDtos(List<TEntity> entities);
 }

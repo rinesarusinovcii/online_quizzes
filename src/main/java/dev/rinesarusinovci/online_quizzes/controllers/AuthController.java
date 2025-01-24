@@ -2,10 +2,10 @@ package dev.rinesarusinovci.online_quizzes.controllers;
 
 import dev.rinesarusinovci.online_quizzes.dto.LoginDto;
 import dev.rinesarusinovci.online_quizzes.dto.RegisterUserDto;
-import dev.rinesarusinovci.online_quizzes.exeption.EmailExistsExeption;
-import dev.rinesarusinovci.online_quizzes.exeption.UserNotFoundExeption;
-import dev.rinesarusinovci.online_quizzes.exeption.UsernameExistsExeption;
-import dev.rinesarusinovci.online_quizzes.exeption.WrongPasswordExeption;
+import dev.rinesarusinovci.online_quizzes.exception.EmailExistsException;
+import dev.rinesarusinovci.online_quizzes.exception.UserNotFoundException;
+import dev.rinesarusinovci.online_quizzes.exception.UsernameExistsException;
+import dev.rinesarusinovci.online_quizzes.exception.WrongPasswordException;
 import dev.rinesarusinovci.online_quizzes.services.UserService;
 
 import jakarta.servlet.http.Cookie;
@@ -64,11 +64,11 @@ public class AuthController {
             if (returnUrl == null || returnUrl.isBlank())
                 return "redirect:/";
             return "redirect:" + returnUrl;
-        } catch (UserNotFoundExeption e) {
+        } catch (UserNotFoundException e) {
             bindingResult.rejectValue("email", "error.loginRequestDto",
                     e.getMessage());
-            return "login";
-        } catch (WrongPasswordExeption e) {
+            return "/auth/login";
+        } catch (WrongPasswordException e) {
             bindingResult.rejectValue("password", "error.loginRequestDto",
                     e.getMessage());
             return "auth/login";
@@ -95,23 +95,23 @@ public class AuthController {
             return "auth/register";
         }
 
-        if (!registerUserRequestDto.getPassword().equals(registerUserRequestDto.getConfirmPassword())) {
-            bindingResult.rejectValue("password", "error.registerUserRequestDto", "Passwords do not match");
-            bindingResult.rejectValue("confirmPassword", "error.registerUserRequestDto", "Passwords do not match");
-            return "auth/register";
-        }
+//        if (!registerUserRequestDto.getPassword().equals(registerUserRequestDto.getConfirmPassword())) {
+//            bindingResult.rejectValue("password", "error.registerUserRequestDto", "Passwords do not match");
+//            bindingResult.rejectValue("confirmPassword", "error.registerUserRequestDto", "Passwords do not match");
+//            return "auth/register";
+//        }
 
         try {
             userService.register(registerUserRequestDto);
-        } catch (UsernameExistsExeption e) {
+        } catch (UsernameExistsException e) {
             bindingResult.rejectValue("username", "error.registerUserRequestDto", "This username already exists");
             return "auth/register";
-        } catch (EmailExistsExeption e) {
+        } catch (EmailExistsException e) {
             bindingResult.rejectValue("email", "error.registerUserRequestDto", "This email already exists");
             return "auth/register";
         }
 
-        return "redirect:/index";
+        return "redirect:/login";
     }
 
 
