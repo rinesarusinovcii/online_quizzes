@@ -1,10 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html th:replace="~{_fragments/_layoutFile :: layout('Question',~{::div})}"
+      xmlns:th="http://www.thymeleaf.org">
+<div class="col-lg-9 col-md-8 col-2 ">
 
-</body>
+    <link th:href="@{/assets/css/quiz.css}">
+    <div class="card border-0">
+        <!-- Card body -->
+        <div class="card-body p-10 ">
+            <div class="text-center">
+                <form th:object="${questionDto}" method="post">
+                    <div class="mb-3">
+                        <label for="text" class="form-label">Question Text</label>
+                        <textarea class="form-control" id="text" th:field="*{text}" rows="3"
+                                  placeholder="Enter the question text" required></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="questionType" class="form-label">Question Type</label>
+                        <select class="form-select" id="questionType" th:field="*{questionType}">
+                            <option value="" disabled selected>Select question type</option>
+                            <option value="MULTIPLE_CHOICE">Multiple Choice</option>
+                            <option value="TRUE_FALSE">True/False</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="points" class="form-label">Points</label>
+                        <input type="number" class="form-control" id="points" th:field="*{points}"
+                               placeholder="Enter the points" step="0.1" required>
+                    </div>
+
+
+
+                </form>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
 </html>

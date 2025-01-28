@@ -29,8 +29,8 @@ public class QuizController {
 
     @GetMapping("")
     public String quizzes(Model model) {
-        model.addAttribute("drivers", quizService.findAll());
-        return "quizzes/newQuiz";
+        model.addAttribute("quizzes", quizService.findAll());
+        return "/quizzes/newQuiz";
     }
 
     @GetMapping("/{id}/details")
@@ -40,7 +40,7 @@ public class QuizController {
         return "quizzes/details";
     }
 
-    @GetMapping("/create")
+    @GetMapping("/newQuiz")
     public String createQuiz(Model model) {
         model.addAttribute("quizDto", new QuizDto());
         return "quizzes/newQuiz";
@@ -60,7 +60,7 @@ public class QuizController {
         return "quizzes/delete";
     }
 
-    @PostMapping("/create")
+    @PostMapping("/newQuiz")
     public String addQuizz(@Valid @ModelAttribute QuizDto quizDto, BindingResult bindingResult
             , RedirectAttributes redirectAttributes, HttpServletRequest request, HttpServletResponse response,
                            @SessionAttribute("user") UserDto user

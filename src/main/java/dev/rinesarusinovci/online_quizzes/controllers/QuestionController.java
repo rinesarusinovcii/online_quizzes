@@ -1,7 +1,12 @@
 package dev.rinesarusinovci.online_quizzes.controllers;
 
+import dev.rinesarusinovci.online_quizzes.dto.ChoiceDto;
 import dev.rinesarusinovci.online_quizzes.dto.QuestionDto;
+import dev.rinesarusinovci.online_quizzes.dto.UserDto;
+import dev.rinesarusinovci.online_quizzes.services.ChoiceService;
 import dev.rinesarusinovci.online_quizzes.services.QuestionService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -15,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/question")
 public class QuestionController {
     private final QuestionService questionService;
+    private final ChoiceService choiceService;
 
     @GetMapping("")
     public String questions(Model model) {
@@ -29,10 +35,10 @@ public class QuestionController {
 //        return "quizzes/details";
 //    }
 
-    @GetMapping("/create")
+    @GetMapping("/newQuestion")
     public String createQuestion(Model model) {
         model.addAttribute("questionDto", new QuestionDto());
-        return "question/create";
+        return "question/newQuestion";
     }
 
     @GetMapping("/{id}/edit")
@@ -49,12 +55,12 @@ public class QuestionController {
         return "question/delete";
     }
 
-    @PostMapping("/create")
+    @PostMapping("/newQuestion")
     public String addQuestion(@Valid @ModelAttribute QuestionDto questionDto, BindingResult bindingResult
             , RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(System.out::println);
-            return "question/new";
+            return "question/newQuestion";
         }
 
 
@@ -89,4 +95,11 @@ public class QuestionController {
         questionService.removeById(id);
         return "redirect:/newQuestion";
     }
+
+
+
+
+    // choices
+
+
 }

@@ -1,87 +1,52 @@
-    <!DOCTYPE html>
-    <html th:replace="~{_fragments/_layoutFile :: layout('Quiz',~{::div})}"
-          xmlns:th="http://www.thymeleaf.org">
-    <div class="col-lg-9 col-md-8 col-2 ">
-        <div class="card border-0">
-            <!-- Card body -->
-            <div class="card-body p-10 ">
-                <div class="text-center">
-                    <div class="container">
-                        <h2>Quiz Form</h2>
-                        <form th:action="@{/quiz}" th:object="${quizDto}" method="post">
-                            <!-- ID Field (hidden, managed by the system) -->
-                            <input type="hidden" th:field="*{id}" />
+<!DOCTYPE html>
+<html th:replace="~{_fragments/_layoutFile :: layout('Quiz',~{::div})}"
+      xmlns:th="http://www.thymeleaf.org">
+<div class="col-lg-9 col-md-8 col-2 ">
 
-                            <!-- Title Field -->
-                            <div class="form-group">
-                                <label for="title">Title:</label>
-                                <input type="text"
-                                       id="title"
-                                       name="title"
-                                       th:field="*{title}"
-                                       maxlength="50"
-                                       minlength="10"
-                                       required>
-                                <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error"></p>
-                            </div>
-
-                            <!-- Category Field -->
-                            <div class="form-group">
-                                <label for="category">Category:</label>
-                                <input type="text"
-                                       id="category"
-                                       name="category"
-                                       th:field="*{category}"
-                                       maxlength="20"
-                                       minlength="5"
-                                       required>
-                                <p th:if="${#fields.hasErrors('category')}" th:errors="*{category}" class="error"></p>
-                            </div>
-
-                            <!-- Description Field -->
-                            <div class="form-group">
-                                <label for="description">Description:</label>
-                                <textarea id="description"
-                                          name="description"
-                                          th:field="*{description}"
-                                          rows="4"
-                                          minlength="10"
-                                          maxlength="1000"></textarea>
-                                <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="error"></p>
-                            </div>
-
-                            <!-- Time Limit Field -->
-                            <div class="form-group">
-                                <label for="timeLimit">Time Limit (minutes):</label>
-                                <input type="number"
-                                       id="timeLimit"
-                                       name="timeLimit"
-                                       th:field="*{timeLimit}"
-                                       min="1"
-                                       required>
-                                <p th:if="${#fields.hasErrors('timeLimit')}" th:errors="*{timeLimit}" class="error"></p>
-                            </div>
-
-                            <!-- Created At Field -->
-                            <div class="form-group">
-                                <label for="createdAt">Created At:</label>
-                                <input type="date"
-                                       id="createdAt"
-                                       name="createdAt"
-                                       th:field="*{createdAt}"
-                                       max="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"
-                                       required>
-                                <p th:if="${#fields.hasErrors('createdAt')}" th:errors="*{createdAt}" class="error"></p>
-                            </div>
-
-                            <!-- Submit Button -->
-                            <button type="submit">Next</button>
-                        </form>
+    <link th:href="@{/assets/css/quiz.css}">
+    <div class="card border-0">
+        <!-- Card body -->
+        <div class="card-body p-10 ">
+            <div class="text-center">
+                <form th:object="${quizDto}" method="post">
+                    <!-- Title -->
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Quiz Title</label>
+                        <input type="text" class="form-control" id="title" th:field="*{title}"
+                               placeholder="Enter the quiz title" required>
                     </div>
 
-                </div>
+                    <!-- Description -->
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" th:field="*{description}" rows="3"
+                                  placeholder="Enter a short description"></textarea>
+                    </div>
+
+                    <!-- Category -->
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Category</label>
+                        <input type="text" class="form-control" id="category" th:field="*{category}"
+                               placeholder="Enter the quiz category">
+                    </div>
+
+
+                    <!-- Time Limit -->
+                    <div class="mb-3">
+                        <label for="timeLimit" class="form-label">Time Limit (minutes)</label>
+                        <input type="number" class="form-control" id="timeLimit" th:field="*{timeLimit}"
+                               placeholder="Enter the time limit">
+                    </div>
+
+
+                    <!-- Submit Button -->
+                    <a th:href="@{/question/newQuestion}" class="btn btn-primary mt-4">Next</a>
+                </form>
+
+
             </div>
         </div>
     </div>
+</div>
 
-    </html>
+</html>

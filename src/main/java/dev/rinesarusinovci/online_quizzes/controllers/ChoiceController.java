@@ -1,6 +1,7 @@
 package dev.rinesarusinovci.online_quizzes.controllers;
 
 import dev.rinesarusinovci.online_quizzes.dto.ChoiceDto;
+import dev.rinesarusinovci.online_quizzes.dto.QuestionDto;
 import dev.rinesarusinovci.online_quizzes.dto.QuizDto;
 import dev.rinesarusinovci.online_quizzes.dto.UserDto;
 import dev.rinesarusinovci.online_quizzes.services.ChoiceService;
@@ -29,14 +30,14 @@ public class ChoiceController {
         return "choices/newChoices";
     }
 
-//    @GetMapping("/{id}/details")
-//    public String choiceDetails(@PathVariable long id, Model model) {
-//        var choice = choiceService.findById(id);
-//        model.addAttribute("choice", choice);
-//        return "quizzes/details";
-//    }
+  @GetMapping("/{id}/details")
+  public String choiceDetails(@PathVariable long id, Model model) {
+        var choice = choiceService.findById(id);
+        model.addAttribute("choice", choice);
+       return "quizzes/details";
+  }
 
-    @GetMapping("/create")
+    @GetMapping("/newChoices")
     public String createChoice(Model model) {
         model.addAttribute("choiceDto", new ChoiceDto());
         return "choices/newChoices";
@@ -56,7 +57,7 @@ public class ChoiceController {
         return "choices/newChoices";
     }
 
-    @PostMapping("/create")
+    @PostMapping("/newChoices")
     public String addChoice(@Valid @ModelAttribute ChoiceDto choiceDto, BindingResult bindingResult
             , RedirectAttributes redirectAttributes, HttpServletRequest request, HttpServletResponse response,
                            @SessionAttribute("user") UserDto user
@@ -66,7 +67,8 @@ public class ChoiceController {
             return "choices/newChoices";
         }
 
-
+      QuestionDto questionDto = new QuestionDto();
+        choiceDto.setQuestionId(questionDto.getId());
         choiceService.add(choiceDto);
         redirectAttributes.addAttribute("errorId", "SUCCESS");
         redirectAttributes.addFlashAttribute("success", "Choice Successfully registererd!");
