@@ -1,7 +1,6 @@
 package dev.rinesarusinovci.online_quizzes.mapper;
 
-import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
+
 
 import java.util.List;
 

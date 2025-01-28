@@ -15,6 +15,6 @@ public class QuestionDto {
     private String text;
     private QuestionType questionType;
     private double points;
-    private long quizId; // Reference to the quiz ID instead of the full Quiz entity
-    private List<String> choices;
+    private long quizId;
+    private List<Long> choices;
 }

@@ -1,6 +1,7 @@
 package dev.rinesarusinovci.online_quizzes.services.impls;
 
 import dev.rinesarusinovci.online_quizzes.dto.QuizDto;
+import dev.rinesarusinovci.online_quizzes.entities.Quiz;
 import dev.rinesarusinovci.online_quizzes.mapper.QuizMapper;
 import dev.rinesarusinovci.online_quizzes.repositories.QuizRepository;
 import dev.rinesarusinovci.online_quizzes.services.QuizService;
@@ -32,16 +33,22 @@ public class QuizServiceImpl implements QuizService {
     }
 
     @Override
-    public QuizDto modify(Long aLong, QuizDto model) {
-         if (aLong != model.getId()) {
-            throw new IllegalArgumentException("Id does not match");
+    public QuizDto modify(Long id, QuizDto quizDto) {
+        Quiz quiz = quizRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Quiz not found"));
+
+        if (!quiz.canBeEdited()) {
+            throw new IllegalStateException("Quiz has already been edited 3 times.");
         }
 
-        if (!quizRepository.existsById(aLong)) {
-            throw new EntityNotFoundException("Post with id " + aLong + " not found");
-        }
-        return save(model);
+        quiz.setTitle(quizDto.getTitle());
+        quiz.setDescription(quizDto.getDescription());
+        quiz.incrementEditCount();
+         quizRepository.save(quiz);
+          return quizMapper.toDto(quiz);
     }
+
+
 
     @Override
     public void removeById(Long aLong) {

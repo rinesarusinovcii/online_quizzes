@@ -124,5 +124,10 @@ public class AuthController {
         session.invalidate();
         return "redirect:/login";
     }
+//
+//    @GetMapping("/index")
+//    public String index() {
+//        return "index";
+//    }
 
 }

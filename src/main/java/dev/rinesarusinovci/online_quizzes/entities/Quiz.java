@@ -1,66 +1,78 @@
-package dev.rinesarusinovci.online_quizzes.entities;
+    package dev.rinesarusinovci.online_quizzes.entities;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+    import jakarta.persistence.*;
+    import jakarta.validation.constraints.*;
+    import lombok.AllArgsConstructor;
+    import lombok.Getter;
+    import lombok.NoArgsConstructor;
+    import lombok.Setter;
 
-import java.time.LocalDate;
-import java.util.List;
+    import java.time.LocalDate;
+    import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity(name = "quizzes")
-public class Quiz {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @PositiveOrZero(message = "Id must be a positive number")
-    private long id;
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Entity(name = "quizzes")
+    public class Quiz {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @PositiveOrZero(message = "Id must be a positive number")
+        private long id;
 
-    @Column(nullable = false, length = 50)
-    @NotNull(message = "Title is required")
-    @NotBlank(message = "Title is required")
-    @Size(min = 10, max = 50, message = "Title must be between 10 and 50 characters")
-    private String title;
+        @Column(nullable = false, length = 50)
+        @NotNull(message = "Title is required")
+        @NotBlank(message = "Title is required")
+        @Size(min = 10, max = 50, message = "Title must be between 10 and 50 characters")
+        private String title;
 
-    @Column(length = 1000)
-    @Size(min = 10, max = 1000, message = "Description must be between 10 and 1000 characters")
-    private String description;
+        @Column(length = 1000)
+        @Size(min = 10, max = 1000, message = "Description must be between 10 and 1000 characters")
+        private String description;
 
-    @Column(nullable = false, length = 20)
-    @NotNull(message = "Category is required")
-    @NotBlank(message = "Category is required")
-    @Size(min = 5, max = 20, message = "Category must be between 5 and 20 characters")
-    private String category;
+        @Column(nullable = false, length = 20)
+        @NotNull(message = "Category is required")
+        @NotBlank(message = "Category is required")
+        @Size(min = 5, max = 20, message = "Category must be between 5 and 20 characters")
+        private String category;
 
-    @Column(nullable = false)
-    private boolean isPublished;
 
-    @Column(nullable = false)
-    @NotNull(message = "Created at is required")
-    @PastOrPresent(message = "Created at must be in the past or present")
-    private LocalDate createdAt;
 
-    @Column(nullable = false)
-    @NotNull(message = "Time limit is required")
-    @Positive(message = "Time limit must be a positive number")
-    private int timeLimit;
+        @Column(nullable = false)
+        @NotNull(message = "Created at is required")
+        @PastOrPresent(message = "Created at must be in the past or present")
+        private LocalDate createdAt;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User createdBy;
+        @Column(nullable = false)
+        @NotNull(message = "Time limit is required")
+        @Positive(message = "Time limit must be a positive number")
+        private int timeLimit;
 
-    @OneToMany(mappedBy = "quiz")
-    private List<Question> questions;
+        @ManyToOne
+        @JoinColumn(name = "user_id")
+        private User createdBy;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "report_id", referencedColumnName = "id")
-    private Report report;
+        @OneToMany(mappedBy = "quiz")
+        private List<Question> questions;
 
-    @OneToMany(mappedBy = "quiz")
-    private List<Result> results;
-}
+        @OneToOne(cascade = CascadeType.ALL)
+        @JoinColumn(name = "report_id", referencedColumnName = "id")
+        private Report report;
+
+        @OneToMany(mappedBy = "quiz")
+        private List<Result> results;
+
+
+
+        private int editCount = 0; // Default to 0
+
+        // Additional methods
+        public boolean canBeEdited() {
+            return editCount < 3;
+        }
+
+        public void incrementEditCount() {
+            this.editCount++;
+        }
+    }

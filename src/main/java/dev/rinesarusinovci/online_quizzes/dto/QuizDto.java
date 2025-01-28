@@ -18,8 +18,8 @@ public class QuizDto {
     private boolean isPublished;
     private LocalDate createdAt;
     private int timeLimit;
-    private String createdBy; // Use userId or userName instead of the full User entity
-    private List<String> questions; // Only include question IDs or summaries if needed
-    private String report; // Reference to report ID or summary
-    private List<String> results;
+    private long createdBy; // Use userId or userName instead of the full User entity
+    private List<Long> questions; // Only include question IDs or summaries if needed
+    private long report; // Reference to report ID or summary
+    private List<Long> results;
 }

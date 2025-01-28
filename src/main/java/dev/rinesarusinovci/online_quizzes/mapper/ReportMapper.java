@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Primary;
 
 import java.util.List;
 
-@Primary
+
 @Mapper(componentModel = "spring")
 public interface ReportMapper extends BaseMapper<Report, ReportDto> {
 

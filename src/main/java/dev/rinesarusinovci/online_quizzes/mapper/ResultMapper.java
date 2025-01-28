@@ -9,30 +9,25 @@ import org.springframework.context.annotation.Primary;
 
 import java.util.List;
 
-@Primary
+
 @Mapper(componentModel = "spring")
 
 public interface ResultMapper extends BaseMapper<Result, ResultDto> {
     ResultMapper INSTANCE = Mappers.getMapper(ResultMapper.class);
 
     @Override
-    @Mapping(source = "quizId", target = "quiz.id")
-    List<Result> toEntities(List<ResultDto> resultDtos);
+    @Mapping(source = "quiz.id", target = "quizId") // Map `quiz.id` to `quizId`
+    ResultDto toDto(Result result);
 
     @Override
-    @Mapping(source = "quiz.id", target = "quizId")
-    List<ResultDto> toDtos(List<Result> results);
-
-
-
-    @Override
-    @Mapping(source = "quizId", target = "quiz.id")
+    @Mapping(source = "quizId", target = "quiz.id") // Map `quizId` to `quiz.id`
     Result toEntity(ResultDto resultDto);
 
     @Override
-    @Mapping(source = "quiz.id", target = "quizId")
-    ResultDto toDto(Result result);
+    List<ResultDto> toDtos(List<Result> results);
 
+    @Override
+    List<Result> toEntities(List<ResultDto> resultDtos);
 
 
 }
