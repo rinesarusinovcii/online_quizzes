@@ -41,12 +41,12 @@
                         <div class="d-flex align-items-end justify-content-between">
                             <div class="d-flex align-items-center">
                                 <div class="me-2 position-relative d-flex justify-content-end align-items-end mt-n5">
-                                    <img th:src="@{/assets/images/profile-photo.jpg}"
+                                    <img th:src="@{/assets/images/rma.jpg}"
                                          class="avatar-xl rounded-circle border border-4 border-white" alt="avatar"/>
                                 </div>
-                                <div class="lh-1">
+                                <div class="lh-1" >
                                     <h2 class="mb-0">
-                                        Stella Flores
+                                        <th:inline th:text="${session.user.name + ' ' + session.user.surname}"></th:inline>
                                         <a href="#" data-bs-toggle="tooltip" data-placement="top" title="Beginner">
                                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                                  xmlns="http://www.w3.org/2000/svg">
@@ -56,11 +56,11 @@
                                             </svg>
                                         </a>
                                     </h2>
-                                    <p class="mb-0 d-block">@stellaflores</p>
+                                    <p class="mb-0 d-block"> <th:inline th:text="${'@' + session.user.username}"></th:inline></p>
                                 </div>
                             </div>
                             <div>
-                                <a href="profile-edit.html" class="btn btn-primary btn-sm d-none d-md-block">Account
+                                <a th:href="@{/auth/settings}" class="btn btn-primary btn-sm d-none d-md-block">Account
                                     Setting</a>
                             </div>
                         </div>
@@ -94,14 +94,14 @@
                                 <ul class="list-unstyled ms-n2 mb-4">
                                     <!-- Nav item -->
                                     <li class="nav-item">
-                                        <a class="nav-link" th:href="@{/index.html}">
+                                        <a class="nav-link" th:href="@{/}">
                                             <i class="fe fe-calendar nav-icon"></i>
                                             Home
                                         </a>
                                     </li>
                                     <!-- Nav item -->
                                     <li class="nav-item">
-                                        <a class="nav-link" th:href="@{/quizzes}">
+                                        <a class="nav-link" th:href="@{/quizzes/newQuiz}">
                                             <i class="fe fe-credit-card nav-icon"></i>
                                             Create Quiz
                                         </a>
@@ -129,7 +129,9 @@
                                     </li>
                                 </ul>
                                 <!-- Navbar header -->
-                                <span class="navbar-header">Account Settings</span>
+                                <span class="navbar-header" >
+
+                                    Account Settings</span>
                                 <ul class="list-unstyled ms-n2 mb-0">
                                     <!-- Nav item -->
                                     <li class="nav-item">

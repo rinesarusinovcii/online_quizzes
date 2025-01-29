@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html th:replace="~{_fragments/_layoutFile :: layout('Home',~{::div})}"
+      xmlns:th="http://www.thymeleaf.org">
+<div class="col-lg-9 col-md-8 col-2 ">
+    <div class="card border-0">
+        <!-- Card body -->
+        <div class="card-body p-10 ">
+            <div class="text-center">
+
+
+                <div class="px-lg-8">
+                    <a th:href="@{/edit-profile}">Edit user</a>
+                </div>
+                <div class="px-lg-8">
+                    <a th:href="@{/delete-profile}">Delete user</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</html>

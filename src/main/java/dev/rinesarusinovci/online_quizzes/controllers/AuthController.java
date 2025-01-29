@@ -2,6 +2,7 @@ package dev.rinesarusinovci.online_quizzes.controllers;
 
 import dev.rinesarusinovci.online_quizzes.dto.LoginDto;
 import dev.rinesarusinovci.online_quizzes.dto.RegisterUserDto;
+import dev.rinesarusinovci.online_quizzes.dto.UserDto;
 import dev.rinesarusinovci.online_quizzes.exception.EmailExistsException;
 import dev.rinesarusinovci.online_quizzes.exception.UserNotFoundException;
 import dev.rinesarusinovci.online_quizzes.exception.UsernameExistsException;
@@ -76,11 +77,6 @@ public class AuthController {
     }
 
 
-    @GetMapping("/reset-password")
-    public String resetPassword() {
-        return "auth/reset-password";
-    }
-
     @GetMapping("/register")
     public String register(Model model) {
         model.addAttribute("registerUserDto", new RegisterUserDto());
@@ -124,10 +120,74 @@ public class AuthController {
         session.invalidate();
         return "redirect:/login";
     }
-//
-//    @GetMapping("/index")
-//    public String index() {
-//        return "index";
-//    }
+
+    @GetMapping("/edit-profile")
+    public String showEditProfileForm(HttpSession session, Model model) {
+        UserDto loggedInUser = (UserDto) session.getAttribute("user");
+        if (loggedInUser == null) {
+            return "redirect:/login"; // Nëse përdoruesi nuk është i loguar
+        }
+
+        model.addAttribute("userDto", loggedInUser);
+        return "auth/edit-profile"; // Faqja e editimit të profilit
+    }
+
+    /**
+     * Përpunon ndryshimet në profilin e përdoruesit të regjistruar
+     */
+    @PostMapping("/edit-profile")
+    public String editProfile(@Valid @ModelAttribute UserDto userDto,
+                              BindingResult bindingResult,
+                              HttpSession session) {
+        if (bindingResult.hasErrors()) {
+            return "auth/edit-profile";
+        }
+
+        UserDto loggedInUser = (UserDto) session.getAttribute("user");
+        if (loggedInUser == null) {
+            return "redirect:/login";
+        }
+
+        try {
+            UserDto updatedUser = userService.modify(loggedInUser.getId(), userDto);
+            session.setAttribute("user", updatedUser); // Përditëso të dhënat në sesion
+        } catch (UserNotFoundException e) {
+            bindingResult.rejectValue("email", "error.userDto", e.getMessage());
+            return "auth/edit-profile";
+        }
+
+        return "redirect:/";
+    }
+
+    /**
+     * Fshin llogarinë e përdoruesit të regjistruar
+     */
+    @PostMapping("/delete-profile")
+    public String deleteProfile(HttpSession session, HttpServletResponse response) {
+        UserDto loggedInUser = (UserDto) session.getAttribute("user");
+        if (loggedInUser == null) {
+            return "redirect:/login";
+        }
+
+        userService.removeById(loggedInUser.getId());
+        session.invalidate(); // Fshij sesionin
+        Cookie cookie = new Cookie("userId", "");
+        cookie.setMaxAge(0); // Fshij cookie
+        response.addCookie(cookie);
+
+        return "redirect:/register"; // Pas fshirjes, ridrejto te faqja e regjistrimit
+    }
+
+    @GetMapping("/delete-profile")
+    public String deleteProfile(Model model) {
+        model.addAttribute("userDto", new UserDto());
+        return "auth/delete-profile";
+    }
+
+    @GetMapping("/auth/settings")
+    public String settings(Model model) {
+        return "auth/settings";
+    }
+
 
 }

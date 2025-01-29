@@ -47,6 +47,7 @@
                         <!-- Form -->
                         <form class="needs-validation" th:method="post" th:action="@{/register}"
                               th:object="${registerUserDto}">
+
                             <div class="mb-3">
                                 <label for="signUpName" class="form-label">Name</label>
                                 <input type="text" th:field="*{name}" class="form-control" name="signUpName"
