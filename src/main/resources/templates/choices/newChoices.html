@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html th:replace="~{_fragments/_layoutFile :: layout('Question',~{::div})}"
+<html th:replace="~{_fragments/_layoutFile :: layout('Choice',~{::div})}"
       xmlns:th="http://www.thymeleaf.org">
 <div class="col-lg-9 col-md-8 col-2 ">
 
@@ -8,27 +8,27 @@
         <!-- Card body -->
         <div class="card-body p-10 ">
             <div class="text-center">
-                <form th:object="${choiceDto}" method="post" id="formFragment">
+                <form th:object="${choiceDto}" method="post" id="formFragment" th:action="@{/newChoices}">
                     <!-- Choice Text -->
                     <div class="mb-3">
                         <label for="text" class="form-label">Choice Text</label>
-                        <textarea class="form-control" id="text" th:field="*{text}" rows="2" placeholder="Enter the choice text" required></textarea>
+                        <textarea class="form-control" id="text" th:field="*{text}" rows="2"
+                                  placeholder="Enter the choice text" required></textarea>
                     </div>
 
 
                     <!-- Correct or Incorrect Choice Buttons -->
                     <div class="btn-group mb-3" role="group" aria-label="Correct or Incorrect">
-                        <input type="radio" class="btn-check" id="correctChoice" th:field="*{isCorrect}" value="true">
+                        <input type="radio" class="btn-check" id="correctChoice" th:field="*{correct}" value="true">
                         <label class="btn btn-outline-success" for="correctChoice">Correct</label>
 
-                        <input type="radio" class="btn-check" id="incorrectChoice" th:field="*{isCorrect}" value="false">
+                        <input type="radio" class="btn-check" id="incorrectChoice" th:field="*{correct}" value="false">
                         <label class="btn btn-outline-danger" for="incorrectChoice">Incorrect</label>
                     </div>
 
                     <!-- Submit Button -->
                     <button type="submit" class="btn btn-primary">Save Choice</button>
                 </form>
-
 
 
             </div>

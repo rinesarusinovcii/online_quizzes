@@ -34,6 +34,6 @@ public class Choice {
     @Column(nullable = false)
     @NotNull(message = "Is correct is required")
     @NotBlank(message = "Is correct is required")
-    private boolean isCorrect;
+    private boolean correct;
 
 }

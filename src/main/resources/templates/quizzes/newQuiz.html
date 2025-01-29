@@ -8,7 +8,7 @@
         <!-- Card body -->
         <div class="card-body p-10 ">
             <div class="text-center">
-                <form th:object="${quizDto}" method="post">
+                <form th:object="${quizDto}" method="post" action="/newQuiz">
                     <!-- Title -->
                     <div class="mb-3">
                         <label for="title" class="form-label">Quiz Title</label>
@@ -38,7 +38,7 @@
                                placeholder="Enter the time limit">
                     </div>
 
-
+                        <button th:type="submit" class="btn btn-primary">Save Quiz</button>
                     <!-- Submit Button -->
                     <a th:href="@{/question/newQuestion}" class="btn btn-primary mt-4">Next</a>
                 </form>

@@ -33,11 +33,11 @@ public class QuizController {
         return "/quizzes/newQuiz";
     }
 
-    @GetMapping("/{id}/details")
+    @GetMapping("/{id}/theQuizzes")
     public String quizDetails(@PathVariable long id, Model model) {
         var quiz = quizService.findById(id);
         model.addAttribute("quiz", quiz);
-        return "quizzes/details";
+        return "quizzes/theQuizzes";
     }
 
     @GetMapping("/newQuiz")

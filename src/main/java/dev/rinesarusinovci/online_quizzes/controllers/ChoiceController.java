@@ -27,18 +27,18 @@ public class ChoiceController {
     @GetMapping("")
     public String choices(Model model) {
         model.addAttribute("choices", choiceService.findAll());
-        return "choices/newChoices";
+        return "choices/details";
     }
 
-  @GetMapping("/{id}/details")
-  public String choiceDetails(@PathVariable long id, Model model) {
-        var choice = choiceService.findById(id);
-        model.addAttribute("choice", choice);
-       return "quizzes/details";
-  }
+//  @GetMapping("/{id}/details")
+//  public String choiceDetails(@PathVariable long id, Model model) {
+//        var choice = choiceService.findById(id);
+//        model.addAttribute("choice", choice);
+//       return "choices/details";
+//  }
 
     @GetMapping("/newChoices")
-    public String createChoice(Model model) {
+    public String addChoice(Model model) {
         model.addAttribute("choiceDto", new ChoiceDto());
         return "choices/newChoices";
     }
@@ -47,57 +47,56 @@ public class ChoiceController {
     public String modifyChoice(@PathVariable long id, Model model) {
         var choice = choiceService.findById(id);
         model.addAttribute("choice", choice);
-        return "choices/newChoices";
+        return "choices/editChoices";
     }
 
-    @GetMapping("/{id}/delete")
-    public String deleteChoice(@PathVariable long id, Model model) {
-        var choice = choiceService.findById(id);
-        model.addAttribute("choice", choice);
-        return "choices/newChoices";
-    }
+//    @GetMapping("/{id}/delete")
+//    public String deleteChoice(@PathVariable long id, Model model) {
+//        var choice = choiceService.findById(id);
+//        model.addAttribute("choice", choice);
+//        return "choices/deleteChoices";
+//    }
 
     @PostMapping("/newChoices")
     public String addChoice(@Valid @ModelAttribute ChoiceDto choiceDto, BindingResult bindingResult
-            , RedirectAttributes redirectAttributes, HttpServletRequest request, HttpServletResponse response,
-                           @SessionAttribute("user") UserDto user
+            , RedirectAttributes redirectAttributes
     ) {
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(System.out::println);
             return "choices/newChoices";
         }
 
-      QuestionDto questionDto = new QuestionDto();
-        choiceDto.setQuestionId(questionDto.getId());
+//      QuestionDto questionDto = new QuestionDto();
+//        choiceDto.setQuestionId(questionDto.getId());
         choiceService.add(choiceDto);
         redirectAttributes.addAttribute("errorId", "SUCCESS");
         redirectAttributes.addFlashAttribute("success", "Choice Successfully registererd!");
         return "redirect:/newChoices";
     }
 
-    @PostMapping("/{id}/edit")
-    public String modifyChoice(@Valid @ModelAttribute ChoiceDto choiceDto, @PathVariable long id, RedirectAttributes redirectAttributes, BindingResult bindingResult) {
-
-        if (bindingResult.hasErrors()) {
-            bindingResult.getAllErrors().forEach(error -> System.out.println(error.getDefaultMessage()));
-            redirectAttributes.addFlashAttribute("error", "Invalid input provided. Please fix the errors.");
-            return "redirect:/choices/" + id + "/edit";
-        }
-
-        try {
-            choiceService.modify(id, choiceDto);
-            redirectAttributes.addFlashAttribute("success", "Quiz updated successfully!");
-        } catch (IllegalStateException e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/choices/" + id + "/edit";
-        }
-
-        return "redirect:/newChoices";
-    }
-
-    @PostMapping("/{id}/delete")
-    public String removeChoice(@PathVariable long id) {
-        choiceService.removeById(id);
-        return "redirect:/newChoices";
-    }
+//    @PostMapping("/{id}/edit")
+//    public String modifyChoice(@Valid @ModelAttribute ChoiceDto choiceDto, @PathVariable long id, RedirectAttributes redirectAttributes, BindingResult bindingResult) {
+//
+//        if (bindingResult.hasErrors()) {
+//            bindingResult.getAllErrors().forEach(error -> System.out.println(error.getDefaultMessage()));
+//            redirectAttributes.addFlashAttribute("error", "Invalid input provided. Please fix the errors.");
+//            return "redirect:/choices/" + id + "/edit";
+//        }
+//
+//        try {
+//            choiceService.modify(id, choiceDto);
+//            redirectAttributes.addFlashAttribute("success", "Quiz updated successfully!");
+//        } catch (IllegalStateException e) {
+//            redirectAttributes.addFlashAttribute("error", e.getMessage());
+//            return "redirect:/choices/" + id + "/edit";
+//        }
+//
+//        return "redirect:/newChoices";
+//    }
+//
+//    @PostMapping("/{id}/delete")
+//    public String removeChoice(@PathVariable long id) {
+//        choiceService.removeById(id);
+//        return "redirect:/newChoices";
+//    }
 }

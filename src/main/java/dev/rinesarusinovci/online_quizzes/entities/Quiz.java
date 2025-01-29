@@ -65,14 +65,4 @@
 
 
 
-        private int editCount = 0; // Default to 0
-
-        // Additional methods
-        public boolean canBeEdited() {
-            return editCount < 3;
-        }
-
-        public void incrementEditCount() {
-            this.editCount++;
-        }
     }

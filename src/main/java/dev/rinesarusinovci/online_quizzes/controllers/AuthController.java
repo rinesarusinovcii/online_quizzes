@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 
 @Controller
+
 public class AuthController {
     private final UserService userService;
 

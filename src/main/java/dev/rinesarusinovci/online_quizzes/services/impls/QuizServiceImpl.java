@@ -37,13 +37,7 @@ public class QuizServiceImpl implements QuizService {
         Quiz quiz = quizRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Quiz not found"));
 
-        if (!quiz.canBeEdited()) {
-            throw new IllegalStateException("Quiz has already been edited 3 times.");
-        }
 
-        quiz.setTitle(quizDto.getTitle());
-        quiz.setDescription(quizDto.getDescription());
-        quiz.incrementEditCount();
          quizRepository.save(quiz);
           return quizMapper.toDto(quiz);
     }
