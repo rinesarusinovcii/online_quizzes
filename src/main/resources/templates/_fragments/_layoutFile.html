@@ -135,9 +135,16 @@
                                 <ul class="list-unstyled ms-n2 mb-0">
                                     <!-- Nav item -->
                                     <li class="nav-item">
-                                        <a class="nav-link" href="profile-edit.html">
+                                        <a class="nav-link" th:href="@{/edit-profile}">
                                             <i class="fe fe-settings nav-icon"></i>
                                             Edit Profile
+                                        </a>
+                                    </li>
+                                    <!-- Nav item -->
+                                    <li class="nav-item">
+                                        <a class="nav-link" th:href="@{/delete-profile}">
+                                            <i class="fe fe-trash nav-icon"></i>
+                                            Delete Profile
                                         </a>
                                     </li>
                                     <!-- Nav item -->
@@ -169,12 +176,7 @@
                                         </a>
                                     </li>
                                     <!-- Nav item -->
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="delete-profile.html">
-                                            <i class="fe fe-trash nav-icon"></i>
-                                            Delete Profile
-                                        </a>
-                                    </li>
+
                                     <!-- Nav item -->
                                     <li class="nav-item">
                                         <a class="nav-link" href="linked-accounts.html">
@@ -183,12 +185,15 @@
                                         </a>
                                     </li>
                                     <!-- Nav item -->
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="../index.html">
-                                            <i class="fe fe-power nav-icon"></i>
-                                            Sign Out
-                                        </a>
-                                    </li>
+<!--                                    <li class="nav-item">-->
+<!--                                        <a class="nav-link" th:href="@{/logout}">-->
+<!--                                            <i class="fe fe-power nav-icon"></i>-->
+<!--                                            Sign Out-->
+<!--                                        </a>-->
+<!--                                    </li>-->
+                                    <form>
+                                        <button class="dropdown-item" type="submit" formaction="/logout" formmethod="post">Log Out</button>
+                                    </form>
                                 </ul>
                             </div>
                         </div>

@@ -122,6 +122,11 @@ public class AuthController {
         return "redirect:/login";
     }
 
+    @GetMapping("/logout")
+    public String logout() {
+        return "redirect:/re";
+    }
+
     @GetMapping("/edit-profile")
     public String showEditProfileForm(HttpSession session, Model model) {
         UserDto loggedInUser = (UserDto) session.getAttribute("user");
