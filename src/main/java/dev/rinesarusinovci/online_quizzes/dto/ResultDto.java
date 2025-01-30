@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ResultDto {
     private long id;
-    private long quizId; // Reference to the associated quiz ID
+    private long quizId;
     private double score;
     private int correctAnswers;
     private int wrongAnswers;

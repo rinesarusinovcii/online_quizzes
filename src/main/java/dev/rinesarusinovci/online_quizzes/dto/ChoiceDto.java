@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class ChoiceDto {
     private long id;
     private String text;
-    private long questionId; // Reference to the associated question ID
+    private long questionId;
     private boolean correct;
 }

@@ -33,13 +33,13 @@ public interface QuestionMapper extends BaseMapper<Question, QuestionDto> {
     @Override
     List<Question> toEntities(List<QuestionDto> questionDtos);
 
-    // Custom mapping methods for lists
+
 
     default List<Long> mapChoicesToIds(List<Choice> choices) {
         if (choices == null) return null;
         return choices.stream()
                 .map(Choice::getId)
-                .toList(); // Zëvendëson Collectors.toList()
+                .toList();
     }
 
     default List<Choice> mapIdsToChoices(List<Long> ids) {
@@ -50,6 +50,6 @@ public interface QuestionMapper extends BaseMapper<Question, QuestionDto> {
                     choice.setId(id);
                     return choice;
                 })
-                .toList(); // Zëvendëson Collectors.toList()
+                .toList();
     }
 }

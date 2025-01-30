@@ -21,7 +21,7 @@ public interface ChoiceMapper extends BaseMapper<Choice, ChoiceDto> {
     ChoiceDto toDto(Choice choice);
 
     @Override
-    @Mapping(source = "questionId", target = "question.id") // Map `questionId` to `question.id`
+    @Mapping(source = "questionId", target = "question.id")
     Choice toEntity(ChoiceDto choiceDto);
 
     @Override

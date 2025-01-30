@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class ReportDto {
     private long id;
-    private long quizId; // Reference to the associated quiz ID
+    private long quizId;
     private double averageScore;
     private double highestScore;
     private double lowestScore;

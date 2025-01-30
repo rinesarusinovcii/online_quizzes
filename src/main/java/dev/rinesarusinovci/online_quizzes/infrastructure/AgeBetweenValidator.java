@@ -20,7 +20,7 @@ public class AgeBetweenValidator implements ConstraintValidator<AgeBetween, Loca
     @Override
     public boolean isValid(LocalDate birthDate, ConstraintValidatorContext constraintValidatorContext) {
         if (birthDate == null) {
-            return true; // Let other validators handle null values
+            return true;
         }
         int age = Period.between(birthDate, LocalDate.now()).getYears();
         return age >= min && age <= max;

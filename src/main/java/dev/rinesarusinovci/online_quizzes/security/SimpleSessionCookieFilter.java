@@ -18,7 +18,7 @@ public class SimpleSessionCookieFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        //skip the filter for static resources
+
         if (request.getRequestURI().startsWith("/assets")) {
             filterChain.doFilter(request, response);
             return;
@@ -41,7 +41,7 @@ public class SimpleSessionCookieFilter extends OncePerRequestFilter {
 
         UserDto userDto = (UserDto)session.getAttribute("user");
 
-//        // validimi i path-it sipas ROLE
+
 //        if(userDto.getRole().equals("ADMIN")) {
 //            AdminFilter.doFilter(request, response, filterChain);
 //            return;

@@ -16,11 +16,11 @@ public interface ResultMapper extends BaseMapper<Result, ResultDto> {
     ResultMapper INSTANCE = Mappers.getMapper(ResultMapper.class);
 
     @Override
-    @Mapping(source = "quiz.id", target = "quizId") // Map `quiz.id` to `quizId`
+    @Mapping(source = "quiz.id", target = "quizId")
     ResultDto toDto(Result result);
 
     @Override
-    @Mapping(source = "quizId", target = "quiz.id") // Map `quizId` to `quiz.id`
+    @Mapping(source = "quizId", target = "quiz.id")
     Result toEntity(ResultDto resultDto);
 
     @Override

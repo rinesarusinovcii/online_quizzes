@@ -57,9 +57,9 @@ public class AuthController {
 
             Cookie cookie = new Cookie("userId", "" + userDto.getId());
             if (loginRequestDto.isRememberMe()) {
-                cookie.setMaxAge(60 * 60 * 24 * 30); // 30 days
+                cookie.setMaxAge(60 * 60 * 24 * 30);
             } else {
-                cookie.setMaxAge(60 * 60); // 1 hour
+                cookie.setMaxAge(60 * 60);
             }
 
             response.addCookie(cookie);
@@ -131,16 +131,15 @@ public class AuthController {
     public String showEditProfileForm(HttpSession session, Model model) {
         UserDto loggedInUser = (UserDto) session.getAttribute("user");
         if (loggedInUser == null) {
-            return "redirect:/login"; // Nëse përdoruesi nuk është i loguar
+            return "redirect:/login";
         }
 
         model.addAttribute("userDto", loggedInUser);
-        return "auth/edit-profile"; // Faqja e editimit të profilit
+        return "auth/edit-profile";
     }
 
-    /**
-     * Përpunon ndryshimet në profilin e përdoruesit të regjistruar
-     */
+
+
     @PostMapping("/edit-profile")
     public String editProfile(@Valid @ModelAttribute UserDto userDto,
                               BindingResult bindingResult,
@@ -156,7 +155,7 @@ public class AuthController {
 
         try {
             UserDto updatedUser = userService.modify(loggedInUser.getId(), userDto);
-            session.setAttribute("user", updatedUser); // Përditëso të dhënat në sesion
+            session.setAttribute("user", updatedUser);
         } catch (UserNotFoundException e) {
             bindingResult.rejectValue("email", "error.userDto", e.getMessage());
             return "auth/edit-profile";
@@ -165,9 +164,7 @@ public class AuthController {
         return "redirect:/";
     }
 
-    /**
-     * Fshin llogarinë e përdoruesit të regjistruar
-     */
+
     @PostMapping("/delete-profile")
     public String deleteProfile(HttpSession session, HttpServletResponse response) {
         UserDto loggedInUser = (UserDto) session.getAttribute("user");
@@ -176,12 +173,12 @@ public class AuthController {
         }
 
         userService.removeById(loggedInUser.getId());
-        session.invalidate(); // Fshij sesionin
+        session.invalidate();
         Cookie cookie = new Cookie("userId", "");
-        cookie.setMaxAge(0); // Fshij cookie
+        cookie.setMaxAge(0);
         response.addCookie(cookie);
 
-        return "redirect:/register"; // Pas fshirjes, ridrejto te faqja e regjistrimit
+        return "redirect:/register";
     }
 
     @GetMapping("/delete-profile")

@@ -30,12 +30,6 @@ public class ChoiceController {
         return "choices/details";
     }
 
-//  @GetMapping("/{id}/details")
-//  public String choiceDetails(@PathVariable long id, Model model) {
-//        var choice = choiceService.findById(id);
-//        model.addAttribute("choice", choice);
-//       return "choices/details";
-//  }
 
     @GetMapping("/newChoices")
     public String addChoice(Model model) {
@@ -66,8 +60,7 @@ public class ChoiceController {
             return "choices/newChoices";
         }
 
-//      QuestionDto questionDto = new QuestionDto();
-//        choiceDto.setQuestionId(questionDto.getId());
+
         choiceService.add(choiceDto);
         redirectAttributes.addAttribute("errorId", "SUCCESS");
         redirectAttributes.addFlashAttribute("success", "Choice Successfully registererd!");
