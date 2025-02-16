@@ -20,6 +20,6 @@ public class QuizDto {
     private int timeLimit;
     private long createdBy;
     private List<Long> questions;
-    private long report;
-    private List<Long> results;
+//    private long report;
+//    private List<Long> results;
 }

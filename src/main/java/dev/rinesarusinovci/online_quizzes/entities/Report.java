@@ -22,8 +22,8 @@ public class Report {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToOne(mappedBy = "report")
-    private Quiz quiz;
+//    @OneToOne(mappedBy = "report")
+//    private Quiz quiz;
     @Column(nullable = false)
     @NotNull(message = "Average score is required")
     @Positive

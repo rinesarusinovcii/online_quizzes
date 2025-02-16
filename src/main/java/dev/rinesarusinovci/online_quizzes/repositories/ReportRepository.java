@@ -12,5 +12,5 @@ public interface ReportRepository extends JpaRepository<Report, Long> {
     @Override
     Optional<Report> findById(Long id);
 
-    Optional<Report> findByQuizId(Long id);
+//    Optional<Report> findByQuizId(Long id);
 }

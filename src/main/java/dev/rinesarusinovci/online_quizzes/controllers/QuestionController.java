@@ -20,7 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/question")
 public class QuestionController {
     private final QuestionService questionService;
-    private final ChoiceService choiceService;
+
 
     @GetMapping("")
     public String questions(Model model) {
@@ -56,14 +56,14 @@ public class QuestionController {
     }
 
     @PostMapping("/newQuestion")
-    public String addQuestion(@Valid @ModelAttribute QuestionDto questionDto, BindingResult bindingResult
-            , RedirectAttributes redirectAttributes) {
+    public String addQuestion(@Valid @ModelAttribute QuestionDto questionDto, BindingResult bindingResult,
+           @RequestParam("quizId") Long quizId,    RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(System.out::println);
             return "question/newQuestion";
         }
 
-
+        questionDto.setQuizId(quizId);
         questionService.add(questionDto);
         redirectAttributes.addAttribute("errorId", "SUCCESS");
         redirectAttributes.addFlashAttribute("success", "Consumer Successfully registererd!");
@@ -95,11 +95,6 @@ public class QuestionController {
         questionService.removeById(id);
         return "redirect:/newQuestion";
     }
-
-
-
-
-
 
 
 }

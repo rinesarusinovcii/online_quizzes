@@ -34,7 +34,7 @@ public class Question {
     @Column(nullable = false)
     @NotNull(message = "Question type is required")
     @NotBlank(message = "Question type is required")
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private QuestionType questionType;
 
     @Column(nullable = false)

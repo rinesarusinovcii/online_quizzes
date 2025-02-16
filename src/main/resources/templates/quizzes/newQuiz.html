@@ -8,7 +8,7 @@
         <!-- Card body -->
         <div class="card-body p-10 ">
             <div class="text-center">
-                <form th:object="${quizDto}" method="post" action="/newQuiz">
+                <form th:object="${quizDto}" method="post" th:action="@{/quizzes/newQuiz}">
                     <!-- Title -->
                     <div class="mb-3">
                         <label for="title" class="form-label">Quiz Title</label>

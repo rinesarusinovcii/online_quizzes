@@ -69,7 +69,7 @@ public class AuthController {
         } catch (UserNotFoundException e) {
             bindingResult.rejectValue("email", "error.loginRequestDto",
                     e.getMessage());
-            return "/auth/login";
+            return "auth/login";
         } catch (WrongPasswordException e) {
             bindingResult.rejectValue("password", "error.loginRequestDto",
                     e.getMessage());
@@ -122,10 +122,7 @@ public class AuthController {
         return "redirect:/login";
     }
 
-    @GetMapping("/logout")
-    public String logout() {
-        return "redirect:/re";
-    }
+
 
     @GetMapping("/edit-profile")
     public String showEditProfileForm(HttpSession session, Model model) {

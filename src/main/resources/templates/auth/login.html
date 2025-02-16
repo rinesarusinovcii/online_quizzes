@@ -53,12 +53,14 @@
                                 <label for="signInEmail" class="form-label">Email</label>
                                 <input th:type="email" th:field="*{email}" id="signInEmail" class="form-control" name="signInEmail" placeholder="Email address here" required />
                                 <div class="invalid-feedback">Please enter valid username.</div>
+                                <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color:red"></div>
                             </div>
                             <!-- Password -->
                             <div class="mb-3">
                                 <label for="signInPassword" class="form-label">Password</label>
                                 <input th:type="password" th:field="*{password}" id="signInPassword" class="form-control" name="signInPassword" placeholder="**************" required />
                                 <div class="invalid-feedback">Please enter valid password.</div>
+                                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color:red"></div>
                             </div>
                             <!-- Checkbox -->
                             <div class="d-lg-flex justify-content-between align-items-center mb-4">

@@ -19,6 +19,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
+
 @Controller
 @RequestMapping("/quizzes")
 @RequiredArgsConstructor
@@ -27,18 +29,19 @@ public class QuizController {
 
 
 
-    @GetMapping("")
+    @GetMapping("/theQuizzes")
     public String quizzes(Model model) {
         model.addAttribute("quizzes", quizService.findAll());
-        return "/quizzes/newQuiz";
-    }
 
-    @GetMapping("/{id}/theQuizzes")
-    public String quizDetails(@PathVariable long id, Model model) {
-        var quiz = quizService.findById(id);
-        model.addAttribute("quiz", quiz);
         return "quizzes/theQuizzes";
     }
+
+//    @GetMapping("/{id}/theQuizzes")
+//    public String quizDetails(@PathVariable long id, Model model) {
+//        var quiz = quizService.findById(id);
+//        model.addAttribute("quiz", quiz);
+//        return "quizzes/theQuizzes";
+//    }
 
     @GetMapping("/newQuiz")
     public String createQuiz(Model model) {
@@ -53,12 +56,7 @@ public class QuizController {
         return "quizzes/edit";
     }
 
-    @GetMapping("/{id}/delete")
-    public String deleteQuiz(@PathVariable long id, Model model) {
-        var quiz = quizService.findById(id);
-        model.addAttribute("quiz", quiz);
-        return "quizzes/delete";
-    }
+
 
     @PostMapping("/newQuiz")
     public String addQuizz(@Valid @ModelAttribute QuizDto quizDto, BindingResult bindingResult
@@ -73,6 +71,7 @@ public class QuizController {
         HttpSession session = request.getSession(false);
         UserDto userDto = (UserDto) session.getAttribute("user");
         quizDto.setCreatedBy(userDto.getId());
+        quizDto.setCreatedAt(LocalDate.now());
         quizService.add(quizDto);
         redirectAttributes.addAttribute("errorId", "SUCCESS");
         redirectAttributes.addFlashAttribute("success", "Consumer Successfully registererd!");
@@ -103,5 +102,12 @@ public class QuizController {
     public String removeQuiz(@PathVariable long id) {
         quizService.removeById(id);
         return "redirect:/theQuizzes";
+    }
+
+    @GetMapping("/{id}/delete")
+    public String removeQuiz(@PathVariable long id,Model model) {
+        var quiz = quizService.findById(id);
+        model.addAttribute("quiz", quiz);
+        return "quizzes/delete";
     }
 }

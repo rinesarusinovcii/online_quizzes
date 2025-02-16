@@ -21,15 +21,15 @@ public interface QuizMapper extends BaseMapper<Quiz, QuizDto> {
     @Override
     @Mapping(source = "createdBy", target = "createdBy.id")
     @Mapping(source = "questions", target = "questions")
-    @Mapping(source = "report", target = "report.id")
-    @Mapping(source = "results", target = "results")
+//    @Mapping(source = "report", target = "report.id")
+//    @Mapping(source = "results", target = "results")
     Quiz toEntity(QuizDto quizDto);
 
     @Override
     @Mapping(source = "createdBy.id", target = "createdBy")
     @Mapping(source = "questions", target = "questions")
-    @Mapping(source = "report.id", target = "report")
-    @Mapping(source = "results", target = "results")
+//    @Mapping(source = "report.id", target = "report")
+//    @Mapping(source = "results", target = "results")
     QuizDto toDto(Quiz quiz);
 
     @Override

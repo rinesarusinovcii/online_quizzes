@@ -8,7 +8,9 @@
         <!-- Card body -->
         <div class="card-body p-10 ">
             <div class="text-center">
-                <form th:object="${questionDto}" method="post" th:action="@{/newQuestion}">
+                <form th:object="${questionDto}" method="post" th:action="@{/question/newQuestion}">
+                    <input type="hidden" name="quizId" th:field="*{quizId}" />
+
                     <div class="mb-3">
                         <label for="text" class="form-label">Question Text</label>
                         <textarea class="form-control" id="text" th:field="*{text}" rows="3"

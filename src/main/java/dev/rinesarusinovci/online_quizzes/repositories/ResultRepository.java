@@ -13,6 +13,6 @@ public interface ResultRepository  extends JpaRepository<Result, Long> {
     @Override
     Optional<Result> findById(Long id);
 
-    Optional<Result> findByQuiz(Quiz quiz);
+//    Optional<Result> findByQuiz(Quiz quiz);
 
 }

@@ -56,12 +56,12 @@
         @OneToMany(mappedBy = "quiz")
         private List<Question> questions;
 
-        @OneToOne(cascade = CascadeType.ALL)
-        @JoinColumn(name = "report_id", referencedColumnName = "id")
-        private Report report;
-
-        @OneToMany(mappedBy = "quiz")
-        private List<Result> results;
+//        @OneToOne(cascade = CascadeType.ALL)
+//        @JoinColumn(name = "report_id", referencedColumnName = "id")
+//        private Report report;
+//
+//        @OneToMany(mappedBy = "quiz")
+//        private List<Result> results;
 
 
 

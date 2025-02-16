@@ -16,19 +16,19 @@ public interface ReportMapper extends BaseMapper<Report, ReportDto> {
     ReportMapper INSTANCE = Mappers.getMapper(ReportMapper.class);
 
     @Override
-    @Mapping(source = "quizId", target = "quiz.id")
+//    @Mapping(source = "quizId", target = "quiz.id")
     List<Report> toEntities(List<ReportDto> reportDtos);
 
     @Override
-    @Mapping(source = "quiz.id", target = "quizId")
+//    @Mapping(source = "quiz.id", target = "quizId")
     List<ReportDto> toDtos(List<Report> reports);
 
     @Override
-    @Mapping(source = "quizId", target = "quiz.id")
+//    @Mapping(source = "quizId", target = "quiz.id")
     Report toEntity(ReportDto reportDto);
 
     @Override
-    @Mapping(source = "quiz.id", target = "quizId")
+//    @Mapping(source = "quiz.id", target = "quizId")
     ReportDto toDto(Report report);
 
 

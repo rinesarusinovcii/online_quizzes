@@ -18,9 +18,9 @@ public class Result {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private Quiz quiz;
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private Quiz quiz;
 
     @Column(nullable = false)
     @NotNull
